@@ -1,0 +1,23 @@
+FrontEndBundle\Entity\Socio:
+    type: entity
+    table: socios
+    id:
+        nro:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+        puntos:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+    lifecycleCallbacks: {  }

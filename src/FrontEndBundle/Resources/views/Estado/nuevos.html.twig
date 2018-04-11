@@ -1,0 +1,44 @@
+
+    {%for estado in estados %}
+        
+        <article id="article{{estado.id}}" class="cAbm">
+            <header>
+                <section class="cAncho">
+                    <h1 class="cRecuadro izq cerulio">{{estado.articulo.nombre}}</h1>
+                    <label class="cRecuadro izq cerulio">{{estado.nota}}</label>
+                </section>
+                <section class="cAncho">
+                    
+                    <h2 class="cRecuadro izq violeta" > P: {{estado.pedido|date("H:i")}}</h2>
+                    {%if estado.listo != null%}
+                        <h2 class="cRecuadro izq violeta" > L: {{estado.listo|date("H:i")}}</h2>
+                        {%if estado.servido != null%}
+                        <h2 class="cRecuadro izq violeta" > S: {{estado.servido|date("H:i")}}</h2>
+                        {%endif%}
+                    {%endif%}
+                    
+                    <h2 class="cRecuadro izq musgo" > Mesa: {{estado.venta.mesa}}</h2>
+                    <h2 class="cRecuadro izq musgo" > Mozo: {{estado.venta.usuario.nombre}}</h2> 
+                    <label id="label{{estado.id}}" class="cLabel cRecuadro der mayus hueso textoNegro">{% if estado.listo==null  %} Pendiente {% elseif estado.servido==null %} Listo {%else %} Servido {% endif %}</label>
+                </section>
+            </header>
+                <section  id="section{{estado.id}}" class="cAncho">
+                
+                    {%include 'FrontEndBundle:Estado:boton.html.twig' with  {'estado': estado} only %}
+                </section>
+        </article>
+    {%endfor%}
+    {%if  nuevos is not defined %}
+        <section id="notificacion" class="notificacion"></section>
+    {%else%}
+        {%if app.user.permiso =="ROLE_MOZO"  %}
+           <section id="notificacion" class="notificacion">Pedidos listos:</br>{{nuevos}}</section> 
+        {%else%}
+            <section id="notificacion" class="notificacion">Pedidos nuevos:</br>{{nuevos}}</section> 
+        {%endif %}
+    {%endif %}
+    
+    
+
+    
+  

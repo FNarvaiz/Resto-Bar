@@ -1,0 +1,24 @@
+@media screen and (max-width: 843px){
+	header#HeaderPC{
+		height: 90px;
+	}
+	.espacioFixedPC{
+		height: 100px;
+	}
+}
+@media screen and (max-width: 472px){
+	header#HeaderPC{
+		height: 140px;
+	}
+	.espacioFixedPC{
+		height: 150px;
+	}
+}
+@media screen and (max-width: 339px){
+	header#HeaderFijoPC{
+		height: 190px;
+	}
+	.espacioFixedPC{
+		height: 200px;
+	}
+}

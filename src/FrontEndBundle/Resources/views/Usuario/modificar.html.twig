@@ -1,0 +1,11 @@
+{% extends "FrontEndBundle::layoutABM.html.twig"  %}
+{% block js %}{% endblock %}
+{% block formulario %}
+    <h2>Modificar usuario</h2>
+    <section class="cContenedorSecundario">
+    {{form_start(form)}}
+    {{form_end(form)}}
+    </section>
+    
+{% endblock%}
+{% block ruta %}{{path("usuarios")}}{% endblock %}

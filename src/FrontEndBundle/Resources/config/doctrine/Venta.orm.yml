@@ -1,0 +1,82 @@
+FrontEndBundle\Entity\Venta:
+    type: entity
+    table: ventas
+    indexes:
+        Mesa:
+            columns:
+                - nroMesa
+        Usuario:
+            columns:
+                - idUsuario
+        caja_diaria:
+            columns:
+                - idCajaDiaria
+    id:
+        nro:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        abierta:
+            type: time
+            nullable: false
+        puntos:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        cerrada:
+            type: time
+            nullable: true
+        descuento:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        total:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        personas:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '1'
+    manyToOne:
+        mesa:
+            targetEntity: Mesa
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                nroMesa:
+                    referencedColumnName: nro
+            orphanRemoval: false
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idUsuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+        cajadiaria:
+            targetEntity: CajaDiaria
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idCajaDiaria:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

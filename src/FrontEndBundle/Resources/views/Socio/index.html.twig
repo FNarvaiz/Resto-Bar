@@ -1,0 +1,20 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}{% endblock %}
+{% block contenido %}
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    {%for socio in socios %}
+        <article class="cAbm">
+				<header><h1 class="cLabel titulo">Nro:{{socio.nro}}</h1><label class="cLabel puntos verde">Puntos disponibles: {{socio.puntos}}</label><label class="cLabel titulo">{{socio.nombre}}</label></header>
+				<section class="cContenedorSecundario">							
+					<a href="{{path("socios_modificar",{"id":socio.nro})}}"><input class="btn001 naranja button sombra-g"  type="button" id="modificar" value="Modificar Socio"></a>
+                        
+				</section>
+		</article>
+        <hr/>
+    {%endfor%}
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+     <a href="{{path("socios_agregar")}}"><button class="btn002 button agregar naranja sombra-g" type="button" id="cerrarMesa">Agregar</button><a>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+
+{% block js %}
+ <script src=" {{ asset('js/jquery.min.js') }}"/></script>
+    <script>
+        
+    function ModificarEstado(id,url){
+                $.ajax({
+                        url:   url,
+                        type:  'get',
+                        beforeSend: function () {
+                                $("#label"+id).text("Procesando");
+                        },
+                        success:  function (response) {
+                            {%if app.user.permiso =="ROLE_ADMIN"  %}
+                                 if ($("#boton"+id).val() == "Listo")
+                                 {
+                                     $("#label"+id).text("Listo");
+                                     $("#section"+id).html(response);}
+                                 else{
+                                    $("#article"+id).remove();
+                                }
+                            {%else %}
+                                $("#article"+id).remove();
+                            {%endif %}  
+                        }
+                });
+    }
+</script>{% endblock %}
+{% block contenido %}
+        
+        <article class="cMesa">				
+				<header>	
+                    {%if venta.cerrada==null %}
+                        <a href="{{path("ventas_agregar_socio_vista",{"nroventa":venta.nro})}}" class="btn003 button agregar verde sombra-g" type="button" id="agregar">Agregar socio a la mesa</a><h1>MESA {{venta.mesa}}</h1>
+                    {%endif%}
+                </header>
+                
+                {% set subtotal =0%}
+                {% set count =0%}
+                {% set ultimoItem =null%}
+                {% for item in items_socios %}
+                    {% set count = count +1%}
+                    {% set banderaNuevo = 0%}
+                    {% if ultimoItem == null    %}
+                        {% set banderaNuevo = 1%}
+                    {% elseif ultimoItem.socio != item.socio   %}
+                            <article class="cMesaItem">
+                                <label class="subtotal">Subtotal: $ {{subtotal}}</label>                                
+                            </article>
+                            <article class="cMesaItem">
+                            {%if venta.cerrada==null %}
+                                <a class="btn003 button agregar verde sombra-g" href="{{path("ventas_items_socio",{"nroventa":venta.nro,"nrosocio":ultimoItem.socio.nro})}}">Agregar item</a>
+                                    {%if ultimoItem.socio.puntos>0 %}
+                                        <a class="btn003 button agregar verde sombra-g" href="{{path("ventas_items_puntos_socio",{"nroventa":venta.nro,"nrosocio":ultimoItem.socio.nro})}}">Cambiar puntos</a>
+                                    {% endif%}
+                                {% endif%}
+                            </article>
+                        </section>
+                        
+                        {% set banderaNuevo = 1%}
+                    {% endif%}
+                    {% if banderaNuevo == 1 %}
+                        {% set subtotal =0%}
+                        <section class="cMesaSocio">
+                        <h1>Socio {{item.socio.nombre}} Puntos: {{item.socio.puntos}} </h1>
+                    {% endif%}
+                    {% set subtotal = subtotal + item.monto %}
+                    <article class="cMesaItem">
+						<label>{%if app.user.permiso =="ROLE_ADMIN" and venta.cerrada==null %}
+                            <a href="{{path("ventas_eliminar_item_socio",{"id":item.id})}}" class="btn002 button eliminar rojo sombra-g"  id="agregar" value="X">X</a>
+                            {%endif%}
+                                {{item.articulo.nombre}} x{{item.cantidad}}{%if item.puntos >0 %} P {{item.puntos}} {%endif%} ${{item.monto}}</label>
+					</article>
+                        {% if count == items_socios|length %}
+                            <article class="cMesaItem">
+                                <label class="subtotal">Subtotal: $ {{subtotal}}</label>                                
+                            </article>
+                            <article class="cMesaItem">
+                            {%if venta.cerrada==null %}
+                                <a class="btn003 button agregar verde sombra-g" href="{{path("ventas_items_socio",{"nroventa":venta.nro,"nrosocio":item.socio.nro})}}">Agregar item</a>
+                                    {%if item.socio.puntos>0 %}
+                                        <a class="btn003 button agregar verde sombra-g" href="{{path("ventas_items_puntos_socio",{"nroventa":venta.nro,"nrosocio":item.socio.nro})}}">Cambiar puntos</a>
+                                    {% endif%}
+                                {% endif%}
+                            </article>
+                        </section>
+                        {% endif%}
+     
+                    {% set ultimoItem =item%}
+               {% endfor %}
+				<section class="cMesaOtros">
+					<h1>Otros</h1>	
+                    {% set subtotal =0%}
+                    {% for item in items %}
+					<article class="cMesaItem">
+                        <label>
+                        {%if app.user.permiso =="ROLE_ADMIN"  and venta.cerrada==null %}
+                            <a href="{{path("ventas_eliminar_item",{"id":item.id})}}" class="btn002 button eliminar rojo sombra-g"> X</a>
+                        {%endif%}
+						{{item.articulo.nombre}} x{{item.cantidad}} ${{item.monto}}</label>
+					</article>
+                    {% set subtotal = subtotal + item.monto %}
+                    {% endfor %}
+					
+					<article class="cMesaItem">			
+						<label class="subtotal">Subtotal: $ {{subtotal}}</label>	
+                        {%if venta.cerrada==null %}
+                            <a href="{{path("ventas_items",{"nroventa":venta.nro})}}" class="btn003 button agregar verde sombra-g"  value="Agregar item">Agregar item</a>			
+					    {%endif%}
+                    </article>					
+				</section>
+                    {%if venta.descuento!=0%}
+                <section>
+					<article class="cMesaItem">			
+						<label class="total">Descuento: $ {{venta.descuento}}</label>				
+					</article>
+				</section>
+                    {%endif%}
+				<section>
+					<article class="cMesaItem">			
+						<label class="total">Total: $ {{venta.total}}</label>				
+					</article>
+				</section>
+			</article>	
+                    <section></section>           
+    {%include 'FrontEndBundle:Estado:index.html.twig' with  {'estados': estados} only %}
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+    <a href="{{path("ventas")}}" class="btn002 button agregar naranja sombra-g" >Volver</a>
+    {%if venta.cerrada==""%}
+        <a href="{{path("ventas_cerrar",{"nroventa":venta.nro})}}" class="btn002 button agregar naranja sombra-g">Cerrar mesa</a>
+        {%if app.user.permiso =="ROLE_ADMIN" %}
+            <a href="{{path("ventas_modificar_descuento_vista",{"nroventa":venta.nro})}}" class="btn002 button agregar naranja sombra-g" >Descuento</a>
+        {%endif%}
+     {%else%}
+        <a href="{{path("imprimir_venta",{"id":venta.nro})}}" class="btn002 button agregar naranja sombra-g">Imprimir</a>
+    {%endif%}
+{% endblock %}

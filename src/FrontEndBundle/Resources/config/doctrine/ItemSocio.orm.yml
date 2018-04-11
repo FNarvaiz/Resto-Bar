@@ -1,0 +1,70 @@
+FrontEndBundle\Entity\ItemSocio:
+    type: entity
+    table: items_socios
+    indexes:
+        Socio:
+            columns:
+                - nroSocio
+        Venta:
+            columns:
+                - nroVenta
+        Articulo:
+            columns:
+                - codigo
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        cantidad:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+        monto:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        puntos:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+    manyToOne:
+        socio:
+            targetEntity: Socio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                nroSocio:
+                    referencedColumnName: nro
+            orphanRemoval: false
+        venta:
+            targetEntity: Venta
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                nroVenta:
+                    referencedColumnName: nro
+            orphanRemoval: false
+        articulo:
+            targetEntity: Articulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                codigo:
+                    referencedColumnName: codigo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Articulo" table="articulos">
+    <id name="codigo" type="integer" column="codigo">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="precio" type="decimal" column="precio" precision="10" scale="2" nullable="true"/>
+    <field name="cocina" type="boolean" column="cocina" nullable="false"/>
+    <field name="bar" type="boolean" column="bar" nullable="false"/>
+    <field name="alta" type="boolean" column="alta" nullable="false"/>
+    <many-to-many field="nroventa" target-entity="Ventas" inversed-by="codigo" fetch="LAZY">
+      <join-table name="items">
+        <join-columns>
+          <join-column name="codigo" referenced-column-name="codigo"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="nroVenta" referenced-column-name="nro"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="codigoarticulo" target-entity="Articulos" inversed-by="codigocombo" fetch="LAZY">
+      <join-table name="combos">
+        <join-columns>
+          <join-column name="codigoCombo" referenced-column-name="codigo"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="codigoArticulo" referenced-column-name="codigo"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

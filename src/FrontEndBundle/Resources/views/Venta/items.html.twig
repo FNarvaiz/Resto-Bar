@@ -1,0 +1,135 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}
+    <script src="{{ asset('js/jquery.min.js') }}"/></script>
+    <script>
+    var count=0;
+    function Filtro(opcion)
+    {
+        $("#items article").each(function(){
+            var obj= $(this);
+            if( obj.attr('id').includes(opcion)){
+                obj.show("fast");
+            }
+            else{
+                obj.hide("fast");
+            }
+        });
+    }
+    function Nota(codigo){
+        if($("#nota"+codigo).length==0){
+            $("#section"+codigo).append("<input type='text' id='nota"+codigo+"' class='cTextbox'>");
+        }
+    }
+    function Agregar(idmensaje,url){
+                
+                $("#section"+idmensaje).html("");
+                $.ajax({
+                        url:   url,
+                        type:  'get',
+                        beforeSend: function () {
+                                $("#section"+idmensaje).text("Procesando, espere por favor...");
+                        },
+                        success:  function (response) {
+                                $("#section"+idmensaje).html(response);
+                        }
+                });
+    }
+    function Guardar(){
+        var codigos="";
+        var bandera=true;
+                $("#lista article div").each(function(){
+                    if(bandera)
+                        bandera=false;
+                    else
+                        codigos+=",";
+                    if($(this).html()!=""){
+                        codigos+=$(this).attr('id')+"<>"+$(this).html();
+                    }
+                    else
+                        codigos+=$(this).attr('id');
+                });
+                codigos+=",";
+                {%if socio is defined%}
+                    var ruta=  "{{path("ventas_agregar_items_socio",{"codigos":"codigos","nroventa":nroventa,"nrosocio":socio.nro})}}";
+                 {%else%}
+                    var ruta=  "{{path("ventas_agregar_items",{"codigos":"codigos","nroventa":nroventa})}}";
+                 {%endif%}
+                 var url= ruta.replace("codigos",codigos);
+                 location.href=url;
+    }
+    function AgregarALista(codigo){
+        count++;
+        $("#lista").append("<article class='cMesaItem' id='lista"+count + "'><div visible=false class='cLabel' id="+codigo+"></div> \
+<input  onclick=Eliminar('lista"+count+"') class='btn001 rojo button sombra-g'  type='button' value='x'>\n\
+ </article>");
+        $( "#nombre"+codigo ).clone().prependTo( "#lista"+count );
+        if($("#nota"+codigo).length>0){
+            if($("#nota"+codigo).val()!=""){
+                $("#lista"+count+ " div").html($("#nota"+codigo).val());
+                $("#nota"+codigo).remove();
+            }
+        }
+        $("#precio"+codigo).clone().appendTo( "#lista"+count );
+    }
+    function Eliminar(id){
+        $("#"+id).remove();   
+    }
+</script>
+{% endblock %}
+{% block contenido %}
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    <article class="cAbm" id="pedido">
+        <h2> Pedido</h2>
+        <section id="lista">             
+        </section>        
+        <input  onclick="Filtro(1)" class="btn001 azul button sombra-g"  type="button" id="Bar" value="Bar">  
+        <input  onclick="Filtro(2)" class="btn001 azul button sombra-g"  type="button" id="Cocina" value="Cocina"> 
+    </article>     
+        
+    <section id="items">
+    {%for articulo in articulos %}         
+        <article class="cAbm" 
+                 {%if articulo.bar and articulo.cocina%} 
+                     id="12" 
+                 {%elseif articulo.bar %}
+                     id="1"
+                 {%else %}
+                     id="2" 
+                 {%endif%} >
+                    <header><!--<h1>Codigo:{{articulo.codigo}}</h1>-->
+                    <label id="nombre{{articulo.codigo}}" class="cLabel titulo">{{articulo.nombre}}</label>                                             
+                    </header>
+                    <section class="cContenedorSecundario">
+                                                  
+                        {%if cambio is defined%}                          
+                            <input  onclick="Agregar('{{articulo.codigo}}','{{path("ventas_cambiar_puntos_socio",{"codigo":articulo.codigo,"nroventa":nroventa,"nrosocio":socio.nro})}}')" class="btn001 rojo button sombra-g"  type="button" id="agregar" value="Canjear"> 
+                        {%else%}
+                             <input  onclick="Nota('{{articulo.codigo}}')" class="btn001 rojo button sombra-g"  type="button" id="Nota" value="Nota">  
+
+                             <input  onclick="AgregarALista('{{articulo.codigo}}')" class="btn001 rojo button sombra-g"  type="button" id="agregar" value="Agregar">  
+
+                        {%endif%}
+                        {%if cambio is defined%}                            
+                            <label id="precio{{articulo.codigo}}" class="cLabel precio">{{articulo.puntos}}</label>
+                        {%else%}                            
+                             <label id="precio{{articulo.codigo}}" class="cLabel precio">${{articulo.precio}}</label>
+                        {%endif%}    
+                             
+
+                    </section>
+                    <section id="section{{articulo.codigo}}"> </section>
+        </article>
+        {%endfor%}
+        </section>
+
+    <hr/>
+{% endblock%}
+ {% block botones %}
+     <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas_mostrar",{"id":nroventa})}}">Volver a la venta<a>
+     <input  onclick="Guardar()" class="btn002 azul button sombra-g"  type="button" id="Guardar" value="Terminar pedido">  
+     
+         {% endblock %}
+
+{# empty Twig template #}

@@ -1,0 +1,45 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        FrontEndBundle\Entity\Usuario:
+                algorithm: bcrypt
+                cost: 4
+                
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        logueo_provider:
+            entity:
+                class: FrontEndBundle:Usuario
+                property: nombre
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            provider: logueo_provider
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path: /logout
+                target: /login
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
+    access_control:
+        - { path: ^/ventas, roles: [ROLE_ADMIN, ROLE_MOZO]}
+        - { path: ^/socios, roles: ROLE_ADMIN}
+        - { path: ^/articulos, roles: ROLE_ADMIN}
+        - { path: ^/cajas, roles: ROLE_ADMIN}
+        - { path: ^/climas, roles: ROLE_ADMIN}
+        - { path: ^/usuarios, roles: ROLE_ADMIN}
+        - { path: ^/config, roles: ROLE_ADMIN}

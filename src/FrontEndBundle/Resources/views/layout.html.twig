@@ -1,0 +1,71 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width= device-width, initial-scale=1"/>
+		<title>
+            {% block title %} Resto Bar {% endblock %}
+        </title>
+        {% block estilos %}
+		<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+		<link rel="stylesheet" href="{{ asset('css/estilo.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/clases.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/mediaquery.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/fuentes.css') }}"/>
+        {% endblock %}
+        {% block js %}
+        {% endblock %}
+	</head>
+
+	<body>
+        <header id="HeaderTablet">
+			<nav id="ppal">				
+				<ul>
+                    {%if app.user != null%}
+                        <li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">{{app.user.nombre}}</button></li>
+                       {%if app.user.permiso == "ROLE_ADMIN"%}
+                            <a href="{{path("usuarios")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Usuarios</button></li></a>
+                            <a href="{{path("climas")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Climas</button></li></a>
+                            <a href="{{path("articulos")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Articulos</button></li></a>
+                            <a href="{{path("cajasdiarias")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Cajas diarias</button></li></a>
+                            <a href="{{path("socios")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Socios</button></li></a>
+                            <a href="{{path("config_modificar",{"id":1})}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Config</button></li></a>
+                        {%endif%}
+                        <a href="{{path("ventas")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Ventas</button></li></a>
+                        <a href="{{path("logout")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Salir</button></li></a>
+                    {%else%}
+                        <a href="{{path("login")}}"><li><button class="btn003 button agregar verde sombra-g" type="button" id="agregar">Entrar</button></li></a>
+                    {%endif%} 
+                    </ul>
+			</nav>
+		</header>
+		<section class="espacioFixedTablet"></section>
+		
+		<section class="cContenedorPrincipal">
+            {% block contenido %} Aqui va el contenido 
+			<article class="cBotonGeneral">
+				<h1>Administrador</h1>
+			</article>
+			<article class="cBotonGeneral">
+				<header><h1>Pepe</h1></header>
+			</article>
+			<article class="cBotonGeneral">
+				<header><h1>Francisco</h1></header>
+			</article>
+			<article class="cBotonGeneral">
+				<header><h1>Juan</h1></header>
+			</article>
+            {% endblock %}
+		</section>
+        <div class="cEspacioFooter">
+        </div>
+	<footer class="sombra-g">
+			<section id="footer">
+                {% block botones %}
+				{% endblock %}
+            </section>			
+	</footer>
+       
+	</body>
+</html>

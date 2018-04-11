@@ -1,0 +1,57 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}
+<script src="{{ asset('js/jquery.min.js') }}"/></script>
+    <script>
+        
+    function Eliminar(id,url){
+                $.ajax({
+                        url:   url,
+                        type:  'get',
+                        beforeSend: function () {
+                                $("#label"+id).text("Procesando");
+                        },
+                        success:  function (response) {
+                            if(response == "ok")
+                                $("#article"+id).remove();
+                            else if(response == "baja")
+                                $("#label"+id).text("Se dio de baja");
+                            else
+                                $("#label"+id).text("No se pudo hacer nada");
+                            
+                        }
+                });
+    }
+</script>
+{% endblock %}
+{% block contenido %}
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    {%for articulo in articulos %}
+    <article id="article{{articulo.codigo}}" class="cAbm">
+				<header><h1>Codigo:{{articulo.codigo}}</h1><label class="cLabel precio">{%if articulo.socio %}Puntos: {{articulo.puntos}} |{%endif%} ${{articulo.precio}}</label></header>
+				<section class="cContenedorSecundario">
+					<label id="label{{articulo.codigo}}" class="cLabel titulo">{{articulo.nombre}}</label>		
+					<label class="cLabel cDescripcion">
+                        Administrado por: {%if articulo.cocina%} Cocina || {%endif %} {%if articulo.bar%} Bar || {%endif %}{%if articulo.happy%} Happy || {%endif %} {%if articulo.alta%} Vigente {%endif %}</label>					
+					
+                        <input class="btn003 button rojo sombra-g" onclick="Eliminar('{{articulo.codigo}}','{{path('articulos_eliminar',{'id':articulo.codigo})}}')" type="button" value="Eliminar/Baja">
+                        
+                   
+                        
+                    <a class="btn001 azul button sombra-g" href="{{path("articulos_modificar",{"id":articulo.codigo})}}">Modificar</a>
+                        
+                           {#{%else %}
+                            {%if articulo.alta %}
+                                <a class="btn001 rojo button sombra-g" href="{{path("articulos_baja_",{"id":articulo.codigo})}}">Dar Baja</a>
+                            #}
+                        
+			</article>
+    {%endfor%}
+        <hr/>
+{% endblock%}
+ {% block botones %}
+     <a href="{{path("articulos_agregar")}}"><button class="btn002 button agregar naranja sombra-g" type="button" id="cerrarMesa">Agregar</button><a>
+			{% endblock %}
+
+{# empty Twig template #}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ItemSocio" table="items_socios">
+    <indexes>
+      <index name="nroSocio" columns="nroSocio"/>
+      <index name="nroVenta" columns="nroVenta"/>
+      <index name="IDX_3E5D773220332D99" columns="codigo"/>
+    </indexes>
+    <id name="nrosocio" association-key="true"/>
+    <id name="nroventa" association-key="true"/>
+    <id name="codigo" association-key="true"/>
+    <field name="cantidad" type="smallint" column="cantidad" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="monto" type="decimal" column="monto" precision="10" scale="2" nullable="true"/>
+    <field name="puntos" type="smallint" column="puntos" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="codigo" target-entity="Articulos" fetch="LAZY">
+      <join-columns>
+        <join-column name="codigo" referenced-column-name="codigo"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="nroventa" target-entity="Ventas" fetch="LAZY">
+      <join-columns>
+        <join-column name="nroVenta" referenced-column-name="nro"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="nrosocio" target-entity="Socios" fetch="LAZY">
+      <join-columns>
+        <join-column name="nroSocio" referenced-column-name="nro"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

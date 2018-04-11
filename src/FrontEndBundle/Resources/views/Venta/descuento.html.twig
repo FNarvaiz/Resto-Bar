@@ -1,0 +1,23 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+
+{% block js %}<script src="{{ asset('js/jquery.min.js') }}"/></script>
+<script>
+    
+    </script>
+{% endblock %}
+{% block contenido %}
+    <article class="cAbm">
+    <h2>Ingrese el total de descuento</h2>
+    
+    <form name="venta" action="{{path("ventas_modificar_descuento",{"nroventa":venta.nro})}}" method="get">
+        <div>
+    <input type="number" id="descuento" name="descuento" value="{{venta.descuento}} " required="required" class="cTextbox">
+    <input type="submit" value="Realizar" id="btn"  class="btn001 azul button sombra-g">
+     </div>
+    </form>
+    </article>
+    
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+     <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas_mostrar",{"id":venta.nro})}}">Volver a la venta<a>
+{% endblock %}

@@ -1,0 +1,23 @@
+{%for venta in ventas %}
+    <article class="cBotonGeneral">
+            <header><h1>MESA {{venta.mesa}}</h1></header>
+            <section class="cInfo"><img class="cIcono" src="{{ asset('images/ico/ic_people_white_24dp.png') }}">
+                <label>{{venta.personas}}</label>
+            </section>
+            <section class="cInfo"><img src="{{ asset('images/ico/ic_person_white_24dp.png') }}">
+                <label>{{venta.usuario.nombre}}</label>
+            </section>
+            {% if app.user.permiso == "ROLE_MOZO" or app.user.permiso == "ROLE_ADMIN" %}
+            <section class="cInfo"><img class="cIcono" src="{{ asset('images/ico/ic_local_atm_white_24dp.png') }}">
+                <label>{{venta.total}}</label>
+            </section>
+            
+            <section class="cInfo"><img class="cIcono" src="{{ asset('images/ico/ic_schedule_white_24dp.png') }}">            
+                <label>{{venta.abierta|date("h:i")}} hs</label>                               
+            </section>
+            <a class="btn004 button agregar naranja sombra-g" href="{{path("ventas_mostrar",{"id":venta.nro})}}">Ir</a>
+                {%endif%}
+                
+        </article>
+    <hr/>
+{%endfor%}

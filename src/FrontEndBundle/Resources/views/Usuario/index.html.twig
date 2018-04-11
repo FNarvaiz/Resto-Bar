@@ -1,0 +1,22 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}{% endblock %}
+{% block contenido %}
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    {%for usuario in usuarios %}
+        <article class="cAbm">
+					<h1 class="cLabel titulo cRecuadro verde">Usuario: {{usuario.nombre}}</h1>
+                    <br><br>        		
+					<h1 class="cLabel titulo">
+                        Permiso: {{usuario.Permiso}} <br>Esta dado de alta: {{usuario.alta}}</h1><br>       			
+                        <a class="btn001 azul button sombra-g" href="{{path("usuarios_modificar",{"id":usuario.id})}}">Modificar</a>
+                       
+                        {# <a href="{{path("usuarios_eliminar",{"id":usuario.id})}}"><input class="btn001 rojo button sombra-g"  type="button" id="eliminar" value="Eliminar"></a>#}                     
+		</article>
+        <hr/>
+    {%endfor%}
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+     <a href="{{path("usuarios_agregar")}}"><button class="btn002 button agregar naranja sombra-g" type="button" id="cerrarMesa">Agregar</button><a>
+{% endblock %}

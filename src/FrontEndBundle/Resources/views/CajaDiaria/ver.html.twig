@@ -1,0 +1,57 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}{% endblock %}
+{% block contenido %}
+{% set Totalpersonas =0%}
+{% set TotalAbiertas =0%}
+{%for venta in ventas %}
+    
+    <article class="cAbm">
+				<header><h1>Nro: {{venta.nro}}</h1><label class="cLabel precio">${{venta.total}}</label></header>
+				<section class="cContenedorSecundario">	
+					<label class="cLabel cDescripcion">
+                        MESA {{venta.mesa}} || MOZO {{venta.usuario.nombre}} || Pers: {{venta.personas}} || A:{{venta.abierta|date("h:i")}}hs {% if venta.cerrada!=null %} || C:{{venta.cerrada|date("h:i")}}hs 
+                        {%else %}{% set TotalAbiertas = TotalAbiertas + venta.total %}{%endif %}</label>					
+					{% set Totalpersonas = Totalpersonas + venta.personas %}
+                    <a class="btn001 azul button sombra-g" href="{{path("ventas_mostrar",{"id":venta.nro})}}">Ver</a>
+                        
+			</article>
+    
+    
+{%endfor%}
+    <hr/>
+    <article class="cAbm">
+				<header><h1>Nro: {{caja.id}} Fecha:{{caja.fecha|date("Y/m/d")}}</h1><label class="cLabel precio">${{caja.totalVenta}}</label></header>
+				<section class="cContenedorSecundario">		
+					<label class="cLabel cDescripcion">
+                        {% if TotalAbiertas>0 %}
+                        Ventas Cerradas: ${{caja.totalVenta}} 
+                        || Ventas Abiertas: ${{TotalAbiertas}} 
+                        {% set total = caja.totalVenta + TotalAbiertas %}
+                        || Total: ${{total}} 
+                        {%else%}
+                           Total: ${{caja.totalVenta}}  
+                        {%endif%}
+                        || Pers totales: {{Totalpersonas}}</label>					
+					
+                        
+	</article>
+    <article class="cAbm">
+				<header><h1>Estadisticas de preparacion</h1><label class="cLabel precio">${{caja.totalVenta}}</label></header>
+				<section class="cContenedorSecundario">		
+					<label class="cLabel cDescripcion">
+                        {% if TotalAbiertas>0 %}
+                        Ventas Cerradas: ${{caja.totalVenta}} 
+                        || Ventas Abiertas: ${{TotalAbiertas}} 
+                        {% set total = caja.totalVenta + TotalAbiertas %}
+                        || Total: ${{total}} 
+                        {%else%}
+                           Total: ${{caja.totalVenta}}  
+                        {%endif%}
+                        || Pers totales: {{Totalpersonas}}</label>					
+					
+                        
+	</article>                    
+{% endblock %}
+    {% block botones %}
+     <a class="btn002 button agregar naranja sombra-g" href="{{path("cajasdiarias")}}">Volver<a>
+         {% endblock %}

@@ -1,0 +1,70 @@
+FrontEndBundle\Entity\Articulo:
+    type: entity
+    table: articulos
+    id:
+        codigo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+        precio:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        puntos:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        promedio:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        cocina:
+            type: boolean
+            nullable: false
+        socio:
+            type: boolean
+            nullable: false
+        happy:
+            type: boolean
+            nullable: false
+        bar:
+            type: boolean
+            nullable: false
+        alta:
+            type: boolean
+            nullable: false
+    manyToMany:
+        articulos:
+            targetEntity: Articulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: combos
+                joinColumns:
+                    -
+                        name: codigoCombo
+                        referencedColumnName: codigo
+                inverseJoinColumns:
+                    -
+                        name: codigoArticulo
+                        referencedColumnName: codigo
+            orderBy: null
+    lifecycleCallbacks: {  }
+    
+    

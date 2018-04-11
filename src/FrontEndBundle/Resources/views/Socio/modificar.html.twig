@@ -1,0 +1,9 @@
+{% extends "FrontEndBundle::layoutABM.html.twig"  %}
+{% block js %}{% endblock %}
+{% block formulario %}
+    <h2>Modificar Socio</h2>
+    {{form_start(form)}}
+    {{form_end(form)}}
+    
+{% endblock%}{# empty Twig template #}
+{% block ruta %}{{path("socios")}}{% endblock %}

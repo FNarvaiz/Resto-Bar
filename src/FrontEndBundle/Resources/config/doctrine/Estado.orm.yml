@@ -1,0 +1,54 @@
+FrontEndBundle\Entity\Estado:
+    type: entity
+    table: estados
+    indexes:
+        articulo:
+            columns:
+                - codigo
+        venta:
+            columns:
+                - nro
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nota:
+            type: string
+            nullable: true
+        pedido:
+            type: time
+            nullable: true
+        listo:
+            type: time
+            nullable: true
+        servido:
+            type: time
+            nullable: true
+    manyToOne:
+        articulo:
+            targetEntity: Articulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                codigo:
+                    referencedColumnName: codigo
+            orphanRemoval: false
+        venta:
+            targetEntity: Venta
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                nro:
+                    referencedColumnName: nro
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

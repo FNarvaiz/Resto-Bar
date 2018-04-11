@@ -1,0 +1,20 @@
+{% extends 'FrontEndBundle::layout.html.twig'   %}
+
+{% block contenido %}
+    {%if app.user == null%}
+    <h2> Login </h2>
+    <hr/>
+    <form action="{{path("login_check") }}" method="post">
+        <div>
+        <label>Usuario: </labe>
+        <input type="text" id="username" name="_username" value="{{last_usuario}}" /> 
+        </div>
+        <div>
+            <label>Contraseña: </labe>
+        <input type="password" id="password" name="_password"  /> 
+        </div>
+        <input type="submit" value="Entrar">
+   <input type="hidden" name="_target_path" value="/login" />
+    </form>
+   {%endif%}
+{% endblock %}

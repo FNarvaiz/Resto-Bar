@@ -1,0 +1,45 @@
+FrontEndBundle\Entity\CajaDiaria:
+    type: entity
+    table: cajas_diarias
+    indexes:
+        idClima:
+            columns:
+                - idClima
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fecha:
+            type: date
+            nullable: false
+        evento:
+            type: boolean
+            nullable: false
+        monto:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        totalventa:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+    manyToOne:
+        idclima:
+            targetEntity: Clima
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idClima:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,198 @@
+login:
+    path:  /login
+    defaults: { _controller: FrontEndBundle:Usuario:login }
+
+index:
+    path:  /
+    defaults: { _controller: FrontEndBundle:Venta:index }
+
+login_check:
+    path: /login_check
+    
+logout:
+    path: /logout
+
+usuarios:
+    path: /usuarios/IndexUsuarios
+    defaults: { _controller: FrontEndBundle:Usuario:index }
+        
+usuarios_agregar:
+    path: /usuarios/AgregarUsuario
+    defaults: { _controller: FrontEndBundle:Usuario:Agregar }
+
+usuarios_eliminar:
+    path: /usuarios/EliminarUsuario/{id}
+    defaults: { _controller: FrontEndBundle:Usuario:Eliminar }
+
+usuarios_modificar:
+    path: /usuarios/ModificarUsuario/{id}
+    defaults: { _controller: FrontEndBundle:Usuario:Modificar }
+
+config_modificar:
+    path: config/ModificarConfig/{id}
+    defaults: { _controller: FrontEndBundle:Config:Modificar }
+
+
+notificaciones:
+    path: /Notificaciones
+    defaults: { _controller: FrontEndBundle:Estado:Notificaciones }
+
+
+cajasdiarias:
+    path: /cajas/IndexCajasDiarias
+    defaults: { _controller: FrontEndBundle:CajaDiaria:index }
+        
+cajasdiarias_agregar:
+    path: /cajas/AgregarCajaDiaria
+    defaults: { _controller: FrontEndBundle:CajaDiaria:Agregar }
+
+cajasdiarias_eliminar:
+    path: /cajas/EliminarCajaDiaria/{id}
+    defaults: { _controller: FrontEndBundle:CajaDiaria:Eliminar }
+    
+cajasdiarias_ver:
+    path: /cajas/VerCajaDiaria/{id}
+    defaults: { _controller: FrontEndBundle:CajaDiaria:Ver }
+
+cajasdiarias_modificar:
+    path: /cajas/ModificarCajaDiaria/{id}
+    defaults: { _controller: FrontEndBundle:CajaDiaria:Modificar }
+
+
+climas:
+    path: /climas/IndexClimas
+    defaults: { _controller: FrontEndBundle:Clima:index }
+        
+climas_agregar:
+    path: /climas/AgregarClima
+    defaults: { _controller: FrontEndBundle:Clima:Agregar }
+
+climas_eliminar:
+    path: /climas/EliminarClima/{id}
+    defaults: { _controller: FrontEndBundle:Clima:Eliminar }
+
+climas_modificar:
+    path: /climas/ModificarClima/{id}
+    defaults: { _controller: FrontEndBundle:Clima:Modificar }
+
+articulos:
+    path: /articulos/IndexArticulos
+    defaults: { _controller: FrontEndBundle:Articulo:index }
+
+articulos_agregar:
+    path: /articulos/AgregarArticulo
+    defaults: { _controller: FrontEndBundle:Articulo:Agregar }
+
+articulos_eliminar:
+    path: /articulos/EliminarArticulo/{id}
+    defaults: { _controller: FrontEndBundle:Articulo:Eliminar }
+
+articulos_modificar:
+    path: /articulos/ModificarArticulo/{id}
+    defaults: { _controller: FrontEndBundle:Articulo:Modificar }
+    
+estados_listo:
+    path: /ListoEstado/{id}
+    defaults: { _controller: FrontEndBundle:Estado:Listo }
+    
+estados_entregado:
+    path: /EntregadoEstado/{id}
+    defaults: { _controller: FrontEndBundle:Estado:Entregado }
+    
+ventas:
+    path: /IndexVentas
+    defaults: { _controller: FrontEndBundle:Venta:index }
+    
+ventas_mostrar:
+    path: /ventas/MostrarVenta/{id}
+    defaults: { _controller: FrontEndBundle:Venta:Mostrar }
+
+ventas_agregar:
+    path: /ventas/AgregarVenta
+    defaults: { _controller: FrontEndBundle:Venta:Agregar }
+    
+ventas_eliminar:
+    path: /ventas/EliminarventasVenta/{id}
+    defaults: { _controller: FrontEndBundle:Venta:Eliminar }
+
+ventas_eliminar_item_socio:
+    path: /ventas/EliminarItemSocio/{id}
+    defaults: { _controller: FrontEndBundle:Venta:EliminarItemSocio }
+    
+ventas_eliminar_item:
+    path: /ventas/EliminarItem/{id}
+    defaults: { _controller: FrontEndBundle:Venta:EliminarItem }
+    
+ventas_items:
+    path: /ventas/Items/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:Items }
+
+ventas_items_puntos_socio:
+    path: /ventas/ItemsPuntos/{nroventa}/{nrosocio}
+    defaults: { _controller: FrontEndBundle:Venta:itemsPuntosSocio }
+
+ventas_items_socio:
+    path: /ventas/Items/{nroventa}/{nrosocio}
+    defaults: { _controller: FrontEndBundle:Venta:ItemsSocio }
+    
+ventas_agregar_item:
+    path: /ventas/AgregarItem/{codigo}/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:AgregarItem }
+    
+ventas_agregar_items:
+    path: /ventas/AgregarItems/{codigos}/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:AgregarItems }
+
+ventas_cerrar:
+    path: /ventas/Cerrar/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:Cerrar }
+    
+ventas_agregar_socio_vista:
+    path: /ventas/AgregarSocioVista/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:AgregarSocioVista }
+
+ventas_modificar_descuento_vista:
+    path: /ventas/ModificarDescuentoVista/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:ModificarDescuentoVista }
+
+ventas_modificar_descuento:
+    path: /ventas/ModificarDescuento/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:ModificarDescuento }
+
+ventas_agregar_socio:
+    path: /ventas/AgregarSocio/{nroventa}
+    defaults: { _controller: FrontEndBundle:Venta:AgregarSocio }
+    
+ventas_cambiar_puntos_socio:
+    path: /ventas/CambiarPuntos/{codigo}/{nroventa}/{nrosocio}
+    defaults: { _controller: FrontEndBundle:Venta:CambiarPuntosSocio }
+
+ventas_agregar_items_socio:
+    path: /ventas/AgregarItems/{codigos}/{nroventa}/{nrosocio}
+    defaults: { _controller: FrontEndBundle:Venta:AgregarItemsSocio }
+
+ventas_modificar:
+    path: /ventas/ModificarVenta/{id}
+    defaults: { _controller: FrontEndBundle:Venta:Modificar }
+
+imprimir_venta:
+    path: /imprimir/venta/{id}
+    defaults: { _controller: FrontEndBundle:Imprimir:ImprimirVenta}
+
+socios:
+    path: /socios/ventas/IndexSocios
+    defaults: { _controller: FrontEndBundle:Socio:index }
+        
+socios_agregar:
+    path: /socios/AgregarSocio
+    defaults: { _controller: FrontEndBundle:Socio:Agregar }
+
+socios_modificar:
+    path: /socios/ModificarSocio/{id}
+    defaults: { _controller: FrontEndBundle:Socio:Modificar }
+
+
+
+front_end_homepage:
+    path:     /Inicio
+    defaults: { _controller: FrontEndBundle:Default:index }

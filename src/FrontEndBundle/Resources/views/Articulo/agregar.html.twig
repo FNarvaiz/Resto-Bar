@@ -1,0 +1,28 @@
+{% extends "FrontEndBundle::layoutABM.html.twig"  %}
+{% block js %}{% endblock %}
+
+{% block notificacion %}
+    {% endblock %}
+{% block formulario %}
+    
+    <h2>Agregar articulo</h2>
+    
+    
+    {{form_start(form)}}
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.precio) }}
+    {{ form_row(form.puntos) }}
+    <div class="cBox">
+        
+    {{ form_row(form.cocina) }}
+    {{ form_row(form.bar) }}
+    {{ form_row(form.happy) }}
+    {{ form_row(form.socio) }}
+    {{ form_row(form.alta) }}
+    </div>
+    {{form_end(form)}}
+
+{% endblock %}
+
+{# empty Twig template #}
+{% block ruta %}{{path("articulos")}}{% endblock %}

@@ -1,0 +1,13 @@
+FrontEndBundle\Entity\Mesa:
+    type: entity
+    table: mesas
+    id:
+        nro:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    lifecycleCallbacks: {  }

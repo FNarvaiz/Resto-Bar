@@ -1,0 +1,7 @@
+{% if  estado.listo==null %}
+    {% if (app.user.permiso == "ROLE_COCINERO" or app.user.permiso == "ROLE_BARMAN" or app.user.permiso == "ROLE_ADMIN") %}
+        <input id="boton{{estado.id}}" onclick="ModificarEstado('{{estado.id}}','{{path("estados_listo",{"id":estado.id})}}','0')" class="btn001 naranja button sombra-g"  type="button" id="agregar" value="Listo">
+    {%endif%}
+{%elseif  estado.servido==null and  (app.user.permiso == "ROLE_MOZO" or app.user.permiso == "ROLE_ADMIN") %}
+    <input id='boton{{estado.id}}' onclick="ModificarEstado('{{estado.id}}','{{path('estados_entregado',{'id':estado.id})}}','1')" class='btn001 azul button sombra-g'  type='button' id='agregar' value='Entregado'>
+{%endif%}{# empty Twig template #}

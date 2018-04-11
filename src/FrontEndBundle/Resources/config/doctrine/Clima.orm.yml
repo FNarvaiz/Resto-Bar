@@ -1,0 +1,20 @@
+FrontEndBundle\Entity\Clima:
+    type: entity
+    table: climas
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

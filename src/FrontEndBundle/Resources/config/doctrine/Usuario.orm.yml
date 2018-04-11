@@ -1,0 +1,36 @@
+FrontEndBundle\Entity\Usuario:
+    type: entity
+    table: usuarios
+    indexes:
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+        permiso:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        alta:
+            type: boolean
+            nullable: false
+    

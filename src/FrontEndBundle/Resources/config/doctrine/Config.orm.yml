@@ -1,0 +1,31 @@
+FrontEndBundle\Entity\Config:
+    type: entity
+    table: config
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        socio:
+            type: decimal
+            nullable: false
+            options:
+                unsigned: false
+        happy:
+            type: decimal
+            nullable: false
+            options:
+                unsigned: false
+        inicio:
+            type: time
+            nullable: true
+        fin:
+            type: time
+            nullable: true
+         
+    lifecycleCallbacks: {  }

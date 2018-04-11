@@ -1,0 +1,19 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}{% endblock %}
+{% block contenido %}
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    {%for clima in climas %}
+         <article class="cAbm">
+        <header><h1>{{clima.nombre}}</h1></header>
+				
+                      <a href="{{path("climas_eliminar",{"id":clima.id})}}"><input class="btn001 rojo button sombra-g"  type="button" id="modificar" value="Eliminar"></a>
+                      <a href="{{path("climas_modificar",{"id":clima.id})}}"><input class="btn001 naranja button sombra-g"  type="button" id="modificar" value="Modificar"></a>
+				
+         </article>
+    {%endfor%}
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+     <a href="{{path("climas_agregar")}}"><button class="btn002 button agregar naranja sombra-g" type="button" id="cerrarMesa">Agregar</button><a>
+{% endblock %}

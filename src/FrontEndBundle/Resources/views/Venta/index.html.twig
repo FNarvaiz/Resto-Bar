@@ -1,0 +1,97 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+
+{% block js %}
+    <script src="{{ asset('js/jquery.min.js') }}"/></script>
+    <script src="{{ asset('js/ion.sound.min.js') }}"/></script>
+<script>
+    ion.sound({
+        sounds: [
+            {
+                name: "button_tiny"
+            },
+            {
+                name: "door_bell",
+                volume: 0.9
+            },
+            {
+                name: "bell_ring",
+                volume: 0.3,
+                preload: false
+            }
+        ],
+        volume: 0.9,
+        path: "js/sounds/",
+        preload: true
+    });
+    
+    timer = setTimeout('Actualizar()', 10000);
+    function Ocultar(){
+        $("#notificacion").hide("slow");
+        location.reload();
+    }
+    function Actualizar(){
+        
+        $.ajax({
+                        url:   '{{path("notificaciones")}}',
+                        type:  'get',
+                        success:  function (response) {
+                            if(response!=""){
+                            {%if app.user.permiso =="ROLE_MOZO"  %}
+                                        $("#notificacion").html("Pedidos listos:</br>"+response);
+                            {%else%}
+                                $("#notificacion").html("Pedidos nuevos:</br>"+response);
+                            {%endif %}  
+                                 $("#notificacion").show("fast");
+                                   $.ionSound.play("door_bell");
+                                   timer2 = setTimeout('Ocultar()', 4000);
+                            }
+                        }
+        });
+        timer = setTimeout('Actualizar()', 10000);
+    }
+    function ModificarEstado(id,url){
+                $.ajax({
+                        url:   url,
+                        type:  'get',
+                        beforeSend: function () {
+                                $("#label"+id).text("Procesando");
+                        },
+                        success:  function (response) {
+                            {%if app.user.permiso =="ROLE_ADMIN"  %}
+                                 if ($("#boton"+id).val() == "Listo")
+                                 {
+                                     $("#label"+id).text("Listo");
+                                     $("#section"+id).html(response);}
+                                 else{
+                                    $("#article"+id).remove();
+                                }
+                            {%else %}
+                                $("#article"+id).remove();
+                            {%endif %}  
+                        }
+                });
+    }
+</script>
+
+{% endblock %}
+{% block contenido %}
+    
+    {%for message in app.session.flashbag().get('status')%}
+        <div class="alerta"> {{message}}</div>
+    {%endfor%}
+    
+    <section id="abiertas">
+    {%include 'FrontEndBundle:Venta:abiertas.html.twig' with  {'ventas': abiertas} only %}
+    </section>
+     <section id="estados">
+    {%include 'FrontEndBundle:Estado:index.html.twig' with  {'estados': estados} only %}
+    </section>
+     <section id="notificacion" class="notificacion"></section>     
+{% endblock%}{# empty Twig template #}
+{% block botones %}
+    {%if app.user.permiso == "ROLE_COCINERO" or app.user.permiso == "ROLE_BARMAN"%}
+     <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas")}}">Actualizar</a>
+     {%else%}
+         <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas_agregar")}}">Agregar</a>
+     {%endif%}     
+{% endblock %}

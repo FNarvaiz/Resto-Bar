@@ -1,0 +1,15 @@
+{% extends "FrontEndBundle::layoutABM.html.twig"  %}
+{% block js %}{% endblock %}
+{% block formulario %}
+    <h2>Configuración</h2>
+    {{form_start(form)}}
+    <div class="cBox">
+    <h2>HappyHour</h2>
+    {{ form_row(form.inicio) }}
+    {{ form_row(form.fin) }}
+    </div>
+    {{ form_row(form.socio) }}
+    {{ form_row(form.happy) }}
+    {{form_end(form)}}
+{% endblock %}{# empty Twig template #}
+{% block ruta %}{{path("index")}}{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "FrontEndBundle::layout.html.twig"  %}
+{% block js %}{% endblock %}
+{% block contenido %}
+    
+    {%if app.user != null%}
+        {{dump(app)}}
+    {{dump(app.user)}}
+    {%endif%}
+    {{error}}
+    {%if is_granted("ROLE_ADMIN")%}
+        El elemento es administrador
+    {%endif%}
+    <article class="cAbm">
+    <h2> Login </h2>
+    
+        <form action="{{path("login_check") }}" method="post">
+            <div>
+            <label>Usuario: </label>
+            <input type="text" id="username" name="_username" class="cTextbox" value="{{last_usuario}}" /> 
+            </div>
+            <div><label>Contraseña: </label>
+            <input type="password" id="password" class="cTextbox" name="_password"  /> 
+            </div>
+            <div>
+            <input type="submit" class="btn001 azul button sombra-g" value="Entrar">
+            </div>
+       <input type="hidden" name="_target_path" value="/login" />
+        </form>
+    </article>
+    
+{% endblock%}
