@@ -10,13 +10,14 @@ class EstadoController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $obj_repo = $em->getRepository("FrontEndBundle:Estado");
         $objetos = $obj_repo->findAll();
-        return $this->render("FrontEndBundle:Estado:index.html.twig", array("estados" => $objetos,"nuevos"=>null));
+        return $this->render("FrontEndBundle:Estado:index.html.twig", array("estados" => $objetos));
     }
 
     public function EntregadoAction($id) {
         $em = $this->getDoctrine()->getManager();
         $obj_repo = $em->getRepository("FrontEndBundle:Estado");
         $objeto = $obj_repo->find($id);
+        ini_set('date.timezone', 'America/Argentina/Buenos_Aires');
         $objeto->setServido(new \DateTime('now'));
         $em->persist($objeto);
         if ($em->flush() == null) {
@@ -49,11 +50,7 @@ class EstadoController extends Controller {
             
         }
         else if($usuario->getPermiso()=="ROLE_COCINERO"){
-            $query = "SELECT a.nombre,count(a.nombre) as cant FROM ESTADOS e INNER JOIN ARTICULOS a ON a.codigo=e.codigo INNER JOIN ventas v on v.nro= e.nro where v.cerrada is null and e.listo is null and  a.cocina=1 and ADDTIME(e.pedido, '00:00:10')>TIME(NOW()) GROUP BY a.nombre ";
-            
-        }
-        else if($usuario->getPermiso()=="ROLE_BARMAN"){
-            $query = "SELECT a.nombre,count(a.nombre) as cant FROM ESTADOS e INNER JOIN ARTICULOS a ON a.codigo=e.codigo INNER JOIN ventas v on v.nro= e.nro where v.cerrada is null and e.listo is null and  a.bar=1 and ADDTIME(e.pedido, '00:00:10')>TIME(NOW()) GROUP BY a.nombre ";
+            $query = "SELECT a.nombre,count(a.nombre) as cant FROM ESTADOS e INNER JOIN ARTICULOS a ON a.codigo=e.codigo INNER JOIN ventas v on v.nro= e.nro where v.cerrada is null and  a.cocina=1 and e.listo is null and  ADDTIME(e.pedido, '00:00:10')>TIME(NOW()) GROUP BY a.nombre ";
             
         }
         else if($usuario->getPermiso()=="ROLE_ADMIN"){

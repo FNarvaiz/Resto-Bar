@@ -23,7 +23,7 @@ class UsuarioType extends AbstractType
                 ->add('password',PasswordType::class,array("label"=>"Contraseña","required"=>"required",
                     "attr"=>array("class"=>"cTextbox")))
                 ->add('permiso',ChoiceType::class,array("required"=>"required",
-                    "choices"=>array("Administrador"=>"ROLE_ADMIN","Mozo"=>"ROLE_MOZO","Cocinero"=>"ROLE_COCINERO","Barman"=>"ROLE_BARMAN")//,"Barman"=>"bar")
+                    "choices"=>array("Administrador"=>"ROLE_ADMIN","Mozo"=>"ROLE_MOZO","Cocinero"=>"ROLE_COCINERO")//,"Barman"=>"bar")
                     ,"attr"=>array("class"=>"cTextbox")))
                 ->add('alta',CheckboxType::class,array("required"=>false
                     ,"attr"=>array("class"=>"cCheckbox")))

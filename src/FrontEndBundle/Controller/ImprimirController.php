@@ -36,11 +36,11 @@ class ImprimirController extends Controller
             $items = $repo_Item->findBy(array("venta" => $venta));
        
             // Enter the share name for your USB printer here
-            $connector = new WindowsPrintConnector("tm20");
+            $connector = new WindowsPrintConnector("EPSON TM-T20II Receipt5");
             $printer = new Printer($connector);
 
             /* Start the printer */
-            $logo = EscposImage::load(__DIR__ . '/../escpos-php/labiere.jpg', false);
+            $logo = EscposImage::load(__DIR__ . '/../escpos-php/falso.jpg', false);
             
             /* Print top logo */
             $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -59,48 +59,45 @@ class ImprimirController extends Controller
             $socio="";
             $subtotal=0;
             $subtotalGeneral=0;
-            if(count($items_socios)>0){
-                foreach ($items_socios as $item) {
-                    if($socio!=$item->getSocio()->getNombre())
-                    {
-                        if($socio!=""){
-                            $subtotalGeneral=$subtotalGeneral+$subtotal;
-                            $this->Enfasis($printer,$subtotal."\n");
-                            $subtotal=0;
-                        }
-                        $socio=$item->getSocio()->getNombre();
-                        $printer -> setEmphasis(true);
-                        $printer -> text($socio."\n");
-                        $printer -> setEmphasis(false);
+            foreach ($items_socios as $item) {
+                if($socio!=$item->getSocio()->getNombre())
+                {
+                    if($socio!=""){
+                        $subtotalGeneral=$subtotalGeneral+$subtotal;
+                        //$this->Enfasis($printer,$subtotal."\n");
+                        $subtotal=0;
                     }
-                    $subtotal=$subtotal+$item->getMonto();
-                    $printer -> text($item);
+                    $socio=$item->getSocio()->getNombre();
+                    $printer -> setEmphasis(true);
+                    $printer -> text($socio."\n");
+                    $printer -> setEmphasis(false);
                 }
-                $subtotalGeneral=$subtotalGeneral+$subtotal;
-
-                $subtotalGeneral=$subtotal+$subtotalGeneral;
-                $printer -> text("Subtotal: $ ".$subtotalGeneral."\n");
+                $subtotal=$subtotal+$item->getMonto();
+                $printer -> text($item);
             }
-            if(count(items)>0){
-                /* Items */
-                $printer -> setJustification(Printer::JUSTIFY_LEFT);
-                $printer -> setEmphasis(true);
-                $printer -> text("Otros\n");
-                //$printer -> text(new item('', '$'));
-                $printer -> setEmphasis(false);
-                $subtotal=0;
-
-                foreach ($items as $item) {
-                    $subtotal=$subtotal+$item->getMonto();
-
-                    $printer -> text($item);
-                }
-
-                $this->Enfasis($printer,$subtotal);
+            $subtotalGeneral=$subtotalGeneral+$subtotal;
+            
+            $subtotalGeneral=$subtotal+$subtotalGeneral;
+            //$printer -> text("Subtotal: $ ".$subtotalGeneral."\n");
+            
+            /* Items */
+            $printer -> setJustification(Printer::JUSTIFY_LEFT);
+            $printer -> setEmphasis(true);
+            $printer -> text("Otros\n");
+            //$printer -> text(new item('', '$'));
+            $printer -> setEmphasis(false);
+            $subtotal=0;
+            foreach ($items as $item) {
+                $subtotal=$subtotal+$item->getMonto();
+                
+                $printer -> text($item);
             }
+            
+            //$this->Enfasis($printer,$subtotal);
+            
             $subtotalGeneral=$subtotal+$subtotalGeneral;
             $printer -> setJustification(Printer::JUSTIFY_RIGHT);
-            $printer -> text("Subtotal: $ ".$subtotalGeneral."\n");
+            //$printer -> text("Subtotal: $ ".$subtotalGeneral."\n");
 
             
             if($venta->getDescuento()>0)

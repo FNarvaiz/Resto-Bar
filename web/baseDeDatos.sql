@@ -22,12 +22,10 @@ Create table MESAS (
 
 Create table VENTAS (
 	nro Int NOT NULL AUTO_INCREMENT,
-	idCajaDiaria Int NOT NULL,
+	id_caja_diaria Int NOT NULL,
 	nroMesa Int NOT NULL,
 	idUsuario Int NOT NULL,
 	abierta Time NOT NULL,
-    total Decimal(10,2),
-    personas Int,
 	puntos Int,
 	cerrada Time,
 	descuento Decimal(10,2),
@@ -55,16 +53,6 @@ Create table CLIMAS (
 	nombre Varchar(150),
  Primary Key (id)) ENGINE = InnoDb;
 
-Create table CONFIG (
-	id Int NOT NULL AUTO_INCREMENT,
-	inicio Time,
-    Fin Time,
-    socio Decimal(10,2),
-    happy Decimal(10,2),
- Primary Key (id)) ENGINE = InnoDb;
-
-INSERT INTO `config` (`id`, `inicio`, `Fin`, `socio`, `happy`) VALUES (NULL, '07:00:00', '12:00:00', '30', '50');
-
 Create table ARTICULOS (
 	codigo Int NOT NULL,
 	nombre Varchar(150),
@@ -72,10 +60,6 @@ Create table ARTICULOS (
 	cocina Bool NOT NULL,
 	bar Bool NOT NULL,
 	alta Bool NOT NULL,
-    puntos Int,
-    promedio Int,
-    socio Bool NOT NULL,
-    happy Bool NOT NULL,
  Primary Key (codigo)) ENGINE = InnoDb;
 
 Create table ITEMS (
@@ -104,12 +88,9 @@ Create table COMBOS (
 
 Create table ESTADOS (
 	id Int NOT NULL AUTO_INCREMENT,
+	estado BOOLEAN NOT NULL,
 	codigo Int NOT NULL,
 	nro Int NOT NULL,
-    nota Varchar(200) ,
-    pedido Time,
-    listo Time,
-    servido Time,
  Primary Key (id)) ENGINE = InnoDb;
 
 Alter table ITEMS_SOCIOS add Foreign Key (nroSocio) references SOCIOS (nro) on delete  restrict on update  restrict;

@@ -1,12 +1,5 @@
-{% if app.user.permiso =="ROLE_ADMIN"     %} 
-{% set count =0%}
-    {% set ultimoItem =null%}
-    {% set banderaNuevo = 0%}
-        {% if ultimoItem == null    %}
-            {% set banderaNuevo = 1%}
-        {% elseif ultimoItem.socio != item.socio   %}
+
     {%for estado in estados %}
-        
         
         <article id="article{{estado.id}}" class="cAbm">
             <header>
@@ -35,8 +28,6 @@
                 </section>
         </article>
     {%endfor%}
- {%endif%}
-    
 
     
   

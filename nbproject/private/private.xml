@@ -3,18 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Form/ConfigType.php</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/Config/modificar.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Controller/DefaultController.php</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/Articulo/agregar.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/Venta/index.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Controller/VentaController.php</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Controller/EstadoController.php</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/layoutABM.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/Venta/mostrar.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/Estado/index.html.twig</file>
-            <file>file:/C:/wamp64/www/restoBar/src/FrontEndBundle/Resources/views/layout.html.twig</file>
+            <file>file:/C:/xampp/htdocs/restoBar/src/FrontEndBundle/Controller/CajaDiariaController.php</file>
+            <file>file:/C:/xampp/htdocs/restoBar/src/FrontEndBundle/Resources/views/CajaDiaria/ver.html.twig</file>
+            <file>file:/C:/xampp/htdocs/restoBar/src/FrontEndBundle/Controller/EstadoController.php</file>
         </group>
     </open-files>
 </project-private>

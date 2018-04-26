@@ -89,7 +89,7 @@
      <section id="notificacion" class="notificacion"></section>     
 {% endblock%}{# empty Twig template #}
 {% block botones %}
-    {%if app.user.permiso == "ROLE_COCINERO" or app.user.permiso == "ROLE_BARMAN"%}
+    {%if app.user.permiso == "ROLE_COCINERO"%}
      <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas")}}">Actualizar</a>
      {%else%}
          <a class="btn002 button agregar naranja sombra-g" href="{{path("ventas_agregar")}}">Agregar</a>

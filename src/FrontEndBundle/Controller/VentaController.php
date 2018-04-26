@@ -44,13 +44,8 @@ class VentaController extends Controller {
                 $abiertas = $obj_repo->findBy(array("usuario" => $usuario,"cerrada" =>null));
                 return $this->render("FrontEndBundle:Venta:index.html.twig", array("abiertas" => $abiertas,"estados" => $estados));
             }
-            else {//cocinero
-                if($usuario->getPermiso()=="ROLE_COCINERO"){
+            else{//cocinero
                 $query = $em->createQuery("SELECT e FROM FrontEndBundle\Entity\Estado e JOIN e.articulo a JOIN e.venta v where v.cerrada is null and  e.listo IS null and a.cocina=1 order by e.id asc ");
-                }
-                else{
-                $query = $em->createQuery("SELECT e FROM FrontEndBundle\Entity\Estado e JOIN e.articulo a JOIN e.venta v where v.cerrada is null and  e.listo IS null and a.bar=1 order by e.id asc ");
-                }
                 $estados = $query->getResult();
                 
                 return $this->render("FrontEndBundle:Venta:index.html.twig", array("abiertas" => "","estados" => $estados));
